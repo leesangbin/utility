@@ -1,0 +1,91 @@
+======== how-to set mail
+
+1. https://support.google.com/mail/answer/78799
+
+
+2. 
+	
+	보내는 메일(SMTP) 서버 – TLS 필요
+	
+	smtp.gmail.com
+	
+	포트: 465 또는 587
+	
+	SSL 필요: 예
+	
+	인증 필요: 예
+	
+	받는 메일 서버와 동일한 설정 사용
+	
+	이름 또는 표시 이름: [사용자 이름]
+	
+	계정 이름 또는 사용자 이름: 전체 Gmail 주소(username@gmail.com). Google Apps 사용자는 username@your_domain.com을 입력하세요.
+	
+	이메일 주소: 전체 Gmail 주소(username@gmail.com). Google Apps 사용자는 username@your_domain.com을 입력하세요.
+	
+	비밀번호: Gmail 비밀번호
+	
+3. 
+	
+	
+	대부분의 클라이언트는 계정에 적절한 IMAP 연결 설정을 자동으로 구성하지만 클라이언트가 구성하는 연결 설정이 아래 나열된 내용과 동일한지 확인하세요.
+
+위 목록에 없는 클라이언트를 사용하는 경우 다음 정보를 사용하여 IMAP를 구성할 수 있습니다. 문제가 발생하면 메일 클라이언트의 고객지원 부서에 문의하여 추가 절차를 안내받으시기 바랍니다.
+
+수신 메일(IMAP) 서버 - SSL 필요
+	imap.gmail.com
+	포트: 993
+	SSL 필요: 예
+
+
+
+
+발신 메일(SMTP) 서버 - TLS 필요
+
+smtp.gmail.com
+
+포트: 465 또는 587
+
+SSL 필요: 예
+
+인증 필요: 예
+
+받는 메일 서버와 동일한 설정 사용
+
+이름 또는 표시 이름: [사용자 이름]
+
+계정 이름 또는 사용자 이름: 전체 Gmail 주소(username@gmail.com). 
+Google Apps 사용자는 username@your_domain.com을 입력하세요.
+
+이메일 주소: 전체 Gmail 주소(username@gmail.com). Google Apps 사용자는 username@your_domain.com을 입력하세요.
+비밀번호: Gmail 비밀번호
+
+
+클라이언트에서 SMTP 인증을 지원하지 않는 경우 
+Gmail 주소를 사용하여 클라이언트를 통해 메일을 보낼 수 없습니다.
+
+또한 메일 클라이언트에서 SMTP 암호화를 사용 중임을 확인했지만 
+여전히 메일을 보낼 수 없는 경우 SMTP 서버를 다른 포트(465 또는 587)에서 구성해 보세요.
+
+
+사용자 이름과 비밀번호가 작동하지 않습니까? 
+일부 앱은 POP/IMAP 연결을 설정하기 전에 
+보안 수준이 낮은 앱에 대한 액세스를 사용 설정하도록 요청합니다.
+
+
+
+4. 
+
+
+https://www.digitalocean.com/community/tutorials/how-to-use-google-s-smtp-server
+
+
+Sending Limits
+
+Google limits the amount of mail a user can send, via its portable SMTP server. 
+
+This limit restricts the number of messages sent per day to 99 emails;
+ 
+and the restriction is automatically removed within 24 hours 
+
+after the limit was reached.
