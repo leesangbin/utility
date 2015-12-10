@@ -1,3 +1,40 @@
+
+
+
+
+2. profile 설정
+  profile은 한 프로젝트가 여러 환경에서 사용가능하게 설정해주는 것인데 쉽게 말해서 lcoal환경과 test환경을 나눠서 설정 할 수있다. 예를 들면 local에서 jdbc url이 localhost:3306이라면 test환경에 jdbc url은 test.jdbc.com:3306일 수 있기 때문이다. test서버에 배포 할때마다 jdbc url을 test환경에 맞게 변경후 배포를 할 필요가 없다는 것이다. profile설정이 없다면 실수로 local 환경으로 test환경에 배포 되어 오류가 날 수도있는 것이다.
+@Profile 어노테이션을 사용해서 간단하게 사용가능하다.
+
+1. Spring Boot에서 Profile 설정
+  application-{profile_name}.properties로 설정이 가능하다. "{profile_name}"이 profile명이 들어가면 그 properties파일이 profile만에 properties가 되는 것이다. 물론 application.properties는 profile과 상관없이 공통으로 사용된다.
+local 환경과 test환경으로 예를 들겠다.
+- local 환경
+  properties명 : application-local.properties
+
+
+- test 환경
+  properties명 : application-test.properties
+
+
+
+  자 그럼 local 환경에서는 localhost:3306이라는 jdbc url을 사용하고, test 환경에서는 test.jdbc.com:3306이라는 jdbc url을 사용하게 되는 것이다.
+
+2. tomcat profile 설정
+{tomcat-root}/bin/setenv.sh 파일 생성 후 아래 입력
+export JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active={profile_name}"
+
+
+
+
+
+
+
+
+
+
+
+
 ======== how-to set mail
 
 1. https://support.google.com/mail/answer/78799
