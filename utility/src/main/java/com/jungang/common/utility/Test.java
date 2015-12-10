@@ -1,39 +1,36 @@
 package com.jungang.common.utility;
 
-import java.net.MalformedURLException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.env.Environment;
 
-import org.apache.commons.mail.EmailException;
-
+//@PropertySource("classpath:properties.xml")
+@PropertySource(value = { "classpath:application.properties" })
 public class Test {
 
-	public static void main(String[] args) throws EmailException, MalformedURLException {
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
+	@Autowired
+	static Environment env;
 
-		/*
-		 * TODO 0. https://commons.apache.org/proper/commons-email/
-		 * 
-		 * 1. A simple text email----------------------------ok 2. Sending
-		 * emails with attachments 3. Sending HTML formatted email 4. Sending
-		 * HTML formatted email with embedded images 5.
-		 * 
-		 */
-		String mailFrom = "sangbinlee9@gmail.com";
-		String mailAddBcc = "lsv400@naver.com";
-		String mailAddTo = "sangbinlee9@gmail.com";
-		String mailSubject = "This is a test mail subject... :-)";
-		String mailMsg = "This is a test mail msg... :-)";
-		String filePath = "";
-		String fileUrl = "";
+    @Value("${SMTP_HOST_NAME:/temp/input}")
+    private static String source;
+    
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
 
-		// 받는 사람
-		String[] recipients = { "receiver@gmail.com" };
+		String workingDirectory = "";
 
-		UtilImpl.sendEmail(mailFrom, mailAddBcc, mailAddTo, mailSubject, mailMsg);
-		// UtilImpl.sendEmailWithFile(filePath, mailHostName, username,
-		// password, mailSSLOn, mailFrom, mailAddBcc,
-		// mailAddTo, mailSubject, mailMsg);
-		// UtilImpl.sendEmailWithUrl(fileUrl, mailHostName, username, password,
-		// mailSSLOn, mailFrom, mailAddBcc, mailAddTo,
-		// mailSubject, mailMsg);
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:properties.xml");
+		Environment environment = context.getEnvironment();
+		System.out.println(source);
 	}
 
 }
