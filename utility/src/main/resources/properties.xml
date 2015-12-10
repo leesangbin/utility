@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>common_code</comment>
+
+	<!-- Common Code Definition -->
+	<!-- <entry key="code.response.success">200</entry> -->
+	<!-- <entry key="code.response.error">400</entry> -->
+
+	<!-- file path Definition 
+	
+	이메일 테스트 전에 먼저     
+	/utility/test-data/Penguins.jpg 
+	/utility/test-data/test.html
+	 
+	위 두개 파일을 C:\Users\Public\Pictures\Sample Pictures 
+		로 복사해서 테스트 했습니다. -->
+	<entry key="window.workingDirectory">C:\Users\Public\Pictures\Sample Pictures</entry>
+	<entry key="linux.workingDirectory">/user/file</entry>
+	<entry key="mac.workingDirectory">/user/file</entry>
+
+
+	<entry key="SMTP_HOST_NAME">smtp.gmail.com</entry>
+	<entry key="USERNAME">sangbinlee999@gmail.com</entry>
+	<entry key="PASSWORD">dlrkdgndkQK</entry>
+	<entry key="MAIL_SSL_ON">true</entry>
+	<entry key="MAIL_TLS_ON">true</entry>
+	<entry key="SMTP_PORT">465</entry>
+
+</properties>
