@@ -7,23 +7,34 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import org.apache.commons.mail.EmailException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
 @SpringBootApplication
 public class MailTest implements CommandLineRunner {
 
+	private static final Logger log = LoggerFactory.getLogger(MailTest.class);
+
 	public static void main(String[] args) throws EmailException, MalformedURLException {
+		ApplicationContext ctx = SpringApplication.run(MailTest.class, args);
 
-		
+		System.out.println("Let's inspect the beans provided by Spring Boot:");
+		String[] beanNames = ctx.getBeanDefinitionNames();
+		Arrays.sort(beanNames);
+		for (String beanName : beanNames) {
+			System.out.println(beanName);
+		}
+		SpringApplication.run(MailTest.class);
 
-        SpringApplication.run(MailTest.class);
-		
-		
 	}
 
 	/**
@@ -35,12 +46,15 @@ public class MailTest implements CommandLineRunner {
 	private static String getPathWithOS(String fileName) {
 
 		// xml 설정파일에서 가져오기
-		//		 String workingDirectory = "C:\\Users\\Public\\Pictures\\Sample Pictures";
+		// String workingDirectory = "C:\\Users\\Public\\Pictures\\Sample
+		// Pictures";
 		String workingDirectory = "";
 
-//		ApplicationContext context = new ClassPathXmlApplicationContext("properties.xml");
-//		Environment environment = context.getEnvironment();
-//		workingDirectory = environment.getProperty("window.workingDirectory");
+		// ApplicationContext context = new
+		// ClassPathXmlApplicationContext("properties.xml");
+		// Environment environment = context.getEnvironment();
+		// workingDirectory =
+		// environment.getProperty("window.workingDirectory");
 
 		// Reading properties file in Java example
 		Properties props = new Properties();
@@ -100,7 +114,6 @@ public class MailTest implements CommandLineRunner {
 	@Override
 	public void run(String... arg0) throws Exception {
 
-		
 		// {{ set value [공통]
 
 		/**
@@ -150,19 +163,23 @@ public class MailTest implements CommandLineRunner {
 		utilImpl.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
 
 		// 2. Sending emails with attachments
-//		utilImpl.sendEmail(filePath, toAddrs, toCc, toBcc, mailSubject, mailMsg);
+		// utilImpl.sendEmail(filePath, toAddrs, toCc, toBcc, mailSubject,
+		// mailMsg);
 
 		// 2. Sending emails with attachments
-//		utilImpl.sendEmail(fileUrl, toAddrs, toCc, toBcc, mailSubject, mailMsg);
+		// utilImpl.sendEmail(fileUrl, toAddrs, toCc, toBcc, mailSubject,
+		// mailMsg);
 
 		// 3. Sending HTML formatted email
-//		utilImpl.sendEmail(htmlFilePath, filePath, toAddrs, toCc, toBcc, mailSubject, mailMsg);
+		// utilImpl.sendEmail(htmlFilePath, filePath, toAddrs, toCc, toBcc,
+		// mailSubject, mailMsg);
 
 		// 4. Sending HTML formatted email with embedded images
-//		utilImpl.sendEmail(urlString, htmlFilePath, filePath, toAddrs, toCc, toBcc, mailSubject, mailMsg);
+		// utilImpl.sendEmail(urlString, htmlFilePath, filePath, toAddrs, toCc,
+		// toBcc, mailSubject, mailMsg);
 
 		// }}
-		
+
 	}
 
 }
