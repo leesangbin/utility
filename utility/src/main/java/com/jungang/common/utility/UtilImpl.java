@@ -19,59 +19,54 @@ import org.apache.commons.mail.resolver.DataSourceUrlResolver;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-//@Configuration
-@PropertySource("classpath:properties.xml")
-//@ComponentScan(basePackages = { "com.jungang.*" })
-//@PropertySource(value = { "classpath:application.properties" })
-//@Service("emailService")
-//@EnableAutoConfiguration
-public class UtilImpl {
-//	public class UtilImpl implements UtilMail{
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-    
-    @Autowired
-    private Environment environment;
-    
-    
-	 @Value("${SMTP_HOST_NAME}")
-	 private String SMTP_HOST_NAME ;
-	// @Value("${USERNAME}")
-	// private String USERNAME ;
-	// @Value("${PASSWORD}")
-	// private String PASSWORD ;
-	// @Value("${MAIL_SSL_ON}")
-	// private boolean MAIL_SSL_ON ;
-	// @Value("${MAIL_TLS_ON}")
-	// private boolean MAIL_TLS_ON ;
-	// @Value("${SMTP_PORT}")
-	// private int SMTP_PORT ;
-	
-//	private String SMTP_HOST_NAME 		= environment.getProperty("SMTP_HOST_NAME");   
-//	private String USERNAME 			= environment.getProperty("USERNAME");         
-//	private String PASSWORD 			= environment.getProperty("PASSWORD");         
-//	private boolean MAIL_SSL_ON 		= Boolean.valueOf(environment.getProperty("MAIL_SSL_ON"));      
-//	private boolean MAIL_TLS_ON 		= Boolean.valueOf(environment.getProperty("MAIL_TLS_ON"));      
-//	private int SMTP_PORT 				= Integer.parseInt(environment.getProperty("SMTP_PORT"));        
+import com.jungang.config.MailProperties;
 
-//		private static final String SMTP_HOST_NAME = "smtp.gmail.com";
-	private static final String USERNAME = "sangbinlee999@gmail.com";
-	private static final String PASSWORD = "dlrkdgndkQK";
-	
-	private static final boolean MAIL_SSL_ON = true;
-	private static final boolean MAIL_TLS_ON = true;
-	private static final int SMTP_PORT = 465;
+@Service("mailService")
+@SpringApplicationConfiguration(classes = MailTest.class)
+// public class UtilImpl {
+public class UtilImpl implements UtilMail {
+
+	@Autowired
+	private MailProperties mailProperties;
+
+	@Autowired
+	private Environment environment;
+
+	@Value("${mail.host}")
+	private String SMTP_HOST_NAME;
+	@Value("${mail.username}")
+	private String USERNAME;
+	@Value("${mail.password}")
+	private String PASSWORD;
+	@Value("${mail.smtp.ssl}")
+	private boolean MAIL_SSL_ON;
+	@Value("${mail.smtp.tls}")
+	private boolean MAIL_TLS_ON;
+	@Value("${mail.port}")
+	private int SMTP_PORT;
+
+	// private String SMTP_HOST_NAME =
+	// environment.getProperty("SMTP_HOST_NAME");
+	// private String USERNAME = environment.getProperty("USERNAME");
+	// private String PASSWORD = environment.getProperty("PASSWORD");
+	// private boolean MAIL_SSL_ON =
+	// Boolean.valueOf(environment.getProperty("MAIL_SSL_ON"));
+	// private boolean MAIL_TLS_ON =
+	// Boolean.valueOf(environment.getProperty("MAIL_TLS_ON"));
+	// private int SMTP_PORT =
+	// Integer.parseInt(environment.getProperty("SMTP_PORT"));
+
+	// private static final String SMTP_HOST_NAME = "smtp.gmail.com";
+	// private static final String USERNAME = "sangbinlee999@gmail.com";
+	// private static final String PASSWORD = "dlrkdgndkQK";
+	//
+	// private static final boolean MAIL_SSL_ON = true;
+	// private static final boolean MAIL_TLS_ON = true;
+	// private static final int SMTP_PORT = 465;
 
 	/**
 	 * 현재년월일 시분초 밀리세컨드 문자열 구하기
@@ -102,10 +97,9 @@ public class UtilImpl {
 	 */
 	public void sendEmail(String[] toAddrs, String[] toCc, String[] toBcc, String mailSubject, String mailMsg) {
 
-//		String SMTP_HOST_NAME 		= environment.getProperty("SMTP_HOST_NAME");   
 		System.out.println(SMTP_HOST_NAME);
-		
-		
+		System.out.println(this.mailProperties.getHost());
+		System.out.println(environment.getProperty("mail.username"));
 		
 		try {
 			String dateTime = getDateTime();
@@ -248,6 +242,7 @@ public class UtilImpl {
 
 	/**
 	 * 4. Sending HTML formatted email with embedded images
+	 * 
 	 * @param urlString
 	 * @param htmlFilePath
 	 * @param imageFilePath

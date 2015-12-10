@@ -7,33 +7,85 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Properties;
 
 import org.apache.commons.mail.EmailException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
+
+import com.jungang.config.AppConfig;
 
 @SpringBootApplication
-public class MailTest implements CommandLineRunner {
+public class MailTest  {
+//	public class MailTest implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(MailTest.class);
 
 	public static void main(String[] args) throws EmailException, MalformedURLException {
-		ApplicationContext ctx = SpringApplication.run(MailTest.class, args);
+		
 
-		System.out.println("Let's inspect the beans provided by Spring Boot:");
-		String[] beanNames = ctx.getBeanDefinitionNames();
-		Arrays.sort(beanNames);
-		for (String beanName : beanNames) {
-			System.out.println(beanName);
-		}
-		SpringApplication.run(MailTest.class);
+        AbstractApplicationContext  context = new AnnotationConfigApplicationContext(AppConfig.class);
+        UtilMail service = (UtilMail) context.getBean("mailService");
+
+		// {{ set value [공통]
+
+		/**
+		 * TODO SET VALUE 1. 받는사람 2. 참조 3. 숨은참조 4. MAIL제목 5. MAIL내용 6. 첨부파일명
+		 */
+
+		// 받는사람
+		String[] toAddrs = new String[] { "lsv400@naver.com" };
+		// 참조
+		String[] toCc = new String[] { "lsv400@naver.com", "sangbinlee999@gmail.com" };
+		// 숨은참조
+		String[] toBcc = new String[] { "sangbinlee9@gmail.com", "lsv400@daum.net" };
+		// MAIL제목
+		String mailSubject = "메일 제목 테스트  :-)";
+		// MAIL내용
+		String mailMsg = "메일 내용 테스트... :-)";
+		// }}
+
+		// {{ set value [개별]
+
+		// 1. A simple text email (받는사람, 참조, 숨은참조, MAIL제목, MAIL내용)
+
+		// 2. Sending emails with attachments
+		// 첨부파일명
+		String imageFileName = "Penguins.jpg";
+		String filePath = getPathWithOS(imageFileName);
+		// HTTPS TEST
+		String fileUrl = "https://ssl.gstatic.com/ui/v1/icons/mail/images/favicon5.ico";
+		// HTTP TEST
+		fileUrl = "http://www.apache.org/images/asf_logo_wide.gif";
+
+		// 3. Sending HTML formatted email
+		String htmlFileName = "test.html";
+		String htmlFilePath = getPathWithOS(htmlFileName);
+
+		// 4. Sending HTML formatted email with embedded images
+		String urlString = "http://pds.joins.com";
+
+		// }}
+
+        service.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
+		 
+
+		context.close();
+		
+		
+//		ApplicationContext ctx = SpringApplication.run(MailTest.class, args);
+//
+//		System.out.println("Let's inspect the beans provided by Spring Boot:");
+//		String[] beanNames = ctx.getBeanDefinitionNames();
+//		Arrays.sort(beanNames);
+//		for (String beanName : beanNames) {
+//			System.out.println(beanName);
+//		}
+//		SpringApplication.run(MailTest.class);
 
 	}
 
@@ -111,48 +163,9 @@ public class MailTest implements CommandLineRunner {
 		return absoluteFilePath;
 	}
 
-	@Override
-	public void run(String... arg0) throws Exception {
-
-		// {{ set value [공통]
-
-		/**
-		 * TODO SET VALUE 1. 받는사람 2. 참조 3. 숨은참조 4. MAIL제목 5. MAIL내용 6. 첨부파일명
-		 */
-
-		// 받는사람
-		String[] toAddrs = new String[] { "lsv400@naver.com" };
-		// 참조
-		String[] toCc = new String[] { "lsv400@naver.com", "sangbinlee999@gmail.com" };
-		// 숨은참조
-		String[] toBcc = new String[] { "sangbinlee9@gmail.com", "lsv400@daum.net" };
-		// MAIL제목
-		String mailSubject = "메일 제목 테스트  :-)";
-		// MAIL내용
-		String mailMsg = "메일 내용 테스트... :-)";
-		// }}
-
-		// {{ set value [개별]
-
-		// 1. A simple text email (받는사람, 참조, 숨은참조, MAIL제목, MAIL내용)
-
-		// 2. Sending emails with attachments
-		// 첨부파일명
-		String imageFileName = "Penguins.jpg";
-		String filePath = getPathWithOS(imageFileName);
-		// HTTPS TEST
-		String fileUrl = "https://ssl.gstatic.com/ui/v1/icons/mail/images/favicon5.ico";
-		// HTTP TEST
-		fileUrl = "http://www.apache.org/images/asf_logo_wide.gif";
-
-		// 3. Sending HTML formatted email
-		String htmlFileName = "test.html";
-		String htmlFilePath = getPathWithOS(htmlFileName);
-
-		// 4. Sending HTML formatted email with embedded images
-		String urlString = "http://pds.joins.com";
-
-		// }}
+	
+//	public void run(String... arg0) throws Exception {
+	public static void mailTest(String... arg0) throws Exception {
 
 		// 메일
 		UtilImpl utilImpl = new UtilImpl();
@@ -160,7 +173,7 @@ public class MailTest implements CommandLineRunner {
 		// {{ test send email
 
 		// 1. A simple text email - ok
-		utilImpl.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
+//		utilImpl.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
 
 		// 2. Sending emails with attachments
 		// utilImpl.sendEmail(filePath, toAddrs, toCc, toBcc, mailSubject,

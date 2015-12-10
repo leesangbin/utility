@@ -1,12 +1,13 @@
-package config;
+package com.jungang.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "mail")
-//@ConfigurationProperties(locations = "classpath:mail.properties", prefix = "mail")
-//@ConfigurationProperties(locations = "classpath:mail.properties", ignoreUnknownFields = false, prefix = "mail")
+//@ConfigurationProperties(prefix = "mail")
+@ConfigurationProperties(locations = "classpath:mail.properties", prefix = "mail")
+// @ConfigurationProperties(locations = "classpath:mail.properties",
+// ignoreUnknownFields = false, prefix = "mail")
 public class MailProperties {
 
 	public static class Smtp {
@@ -32,13 +33,13 @@ public class MailProperties {
 
 	}
 
-//	@NotBlank
+	// @NotBlank
 	private String host;
 	private int port;
 	private String from;
 	private String username;
 	private String password;
-//	@NotNull
+	// @NotNull
 	private Smtp smtp;
 
 	public String getHost() {
