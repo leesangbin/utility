@@ -27,6 +27,7 @@ import com.jungang.config.MailProperties;
 
 @Service("mailService")
 @SpringApplicationConfiguration(classes = MailTest.class)
+//@PropertySource("classpath:mail.properties")
 // public class UtilImpl {
 public class UtilImpl implements UtilMail {
 
