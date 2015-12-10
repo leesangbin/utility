@@ -20,16 +20,15 @@ import org.springframework.context.support.AbstractApplicationContext;
 import com.jungang.config.AppConfig;
 
 @SpringBootApplication
-public class MailTest  {
-//	public class MailTest implements CommandLineRunner {
+public class MailTest {
+	// public class MailTest implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(MailTest.class);
 
 	public static void main(String[] args) throws EmailException, MalformedURLException {
-		
 
-        AbstractApplicationContext  context = new AnnotationConfigApplicationContext(AppConfig.class);
-        UtilMail service = (UtilMail) context.getBean("mailService");
+		AbstractApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		UtilMail service = (UtilMail) context.getBean("mailService");
 
 		// {{ set value [공통]
 
@@ -71,21 +70,20 @@ public class MailTest  {
 
 		// }}
 
-        service.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
-		 
+		service.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
 
 		context.close();
-		
-		
-//		ApplicationContext ctx = SpringApplication.run(MailTest.class, args);
-//
-//		System.out.println("Let's inspect the beans provided by Spring Boot:");
-//		String[] beanNames = ctx.getBeanDefinitionNames();
-//		Arrays.sort(beanNames);
-//		for (String beanName : beanNames) {
-//			System.out.println(beanName);
-//		}
-//		SpringApplication.run(MailTest.class);
+
+		// ApplicationContext ctx = SpringApplication.run(MailTest.class, args);
+		//
+		// System.out.println("Let's inspect the beans provided by Spring
+		// Boot:");
+		// String[] beanNames = ctx.getBeanDefinitionNames();
+		// Arrays.sort(beanNames);
+		// for (String beanName : beanNames) {
+		// System.out.println(beanName);
+		// }
+		// SpringApplication.run(MailTest.class);
 
 	}
 
@@ -163,8 +161,7 @@ public class MailTest  {
 		return absoluteFilePath;
 	}
 
-	
-//	public void run(String... arg0) throws Exception {
+	// public void run(String... arg0) throws Exception {
 	public static void mailTest(String... arg0) throws Exception {
 
 		// 메일
@@ -173,7 +170,7 @@ public class MailTest  {
 		// {{ test send email
 
 		// 1. A simple text email - ok
-//		utilImpl.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
+		// utilImpl.sendEmail(toAddrs, toCc, toBcc, mailSubject, mailMsg);
 
 		// 2. Sending emails with attachments
 		// utilImpl.sendEmail(filePath, toAddrs, toCc, toBcc, mailSubject,
